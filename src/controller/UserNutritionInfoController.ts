@@ -1,11 +1,20 @@
 import {Request, Response} from "express";
 
-class UserNutritionInfoController {
+const UserInfo = require('../db/model/UserNutriticsInfo')
 
-  getById(req: Request, res: Response) {
-    res.json({hello: "world"})
-  }
+
+class UserNutritionInfoController {
+    postUserNutritionInfo(req: Request, res: Response){
+        console.log(req)
+        res.json({hello: "world"})
+    };
+
+    getById(req: Request, res: Response) {
+        console.log(req)
+        res.json({hello: "world"})
+    }
 
 }
+
 
 export const userNutritionInfoController = new UserNutritionInfoController();

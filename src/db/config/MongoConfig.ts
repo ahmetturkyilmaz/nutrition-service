@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://root:example@192.168.0.19:27017/?authSource=admin", {useNewUrlParser: true, useUnifiedTopology: true});
+const connectDB = async () => {
+    const connection = await mongoose.connect(process.env.MONGO_URI_MAC, {useNewUrlParser: true, useUnifiedTopology: true});
+    console.log("MongoDB connected ")
+}
 
-const db = mongoose.connection;
+module.exports = connectDB;
+

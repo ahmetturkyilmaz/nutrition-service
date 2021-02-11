@@ -3,9 +3,10 @@ import {userNutritionInfoController} from "../controller/UserNutritionInfoContro
 const routerExpress = require('express')
 const nutritionRouter = routerExpress.Router();
 
-nutritionRouter.get("/:id",userNutritionInfoController.getById)
+nutritionRouter.route("/")
+    .get(userNutritionInfoController.getById);
 
-nutritionRouter.get("/:id", (req, res) => {
+nutritionRouter.route("/")
+    .post(userNutritionInfoController.postUserNutritionInfo);
 
-})
 module.exports = nutritionRouter;
