@@ -1,12 +1,15 @@
 import {userNutritionInfoController} from "../controller/UserNutritionInfoController";
+import protect from "../middleware/auth";
 
 const routerExpress = require('express')
 const nutritionRouter = routerExpress.Router();
 
-nutritionRouter.route("/")
-    .get(userNutritionInfoController.getById);
+nutritionRouter.route("/:id")
+    .get(protect, userNutritionInfoController.getById)
+    .delete(protect, userNutritionInfoController.deleteUserNutritionInfoById)
+    .put(protect, userNutritionInfoController.putUserNutritionInfo);
 
 nutritionRouter.route("/")
-    .post(userNutritionInfoController.postUserNutritionInfo);
+    .post(protect, userNutritionInfoController.postUserNutritionInfo);
 
 module.exports = nutritionRouter;

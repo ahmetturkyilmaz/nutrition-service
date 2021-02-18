@@ -1,19 +1,32 @@
-import {Request, Response} from "express";
-
-const UserInfo = require('../db/model/UserNutriticsInfo')
-
+import {NextFunction, Request, Response} from "express";
+import asyncHandler from "../middleware/async";
+import UserNutriticsInfo from "../db/model/UserNutriticsInfo";
 
 class UserNutritionInfoController {
-    postUserNutritionInfo(req: Request, res: Response){
+
+    getById = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
         console.log(req)
         res.json({hello: "world"})
-    };
 
-    getById(req: Request, res: Response) {
+    });
+
+    postUserNutritionInfo = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
         console.log(req)
         res.json({hello: "world"})
-    }
 
+    });
+
+    putUserNutritionInfo = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+        console.log(req)
+        res.json({hello: "world"})
+
+    });
+
+    deleteUserNutritionInfoById = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+        console.log(req)
+        res.json({hello: "world"})
+
+    });
 }
 
 

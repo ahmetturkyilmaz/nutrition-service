@@ -7,7 +7,7 @@ const UserNutriticsInfo = new mongoose.Schema({
     },
     height: {
         type: Number,
-        required:true
+        required: true
     },
     weight: {
         type: Number,
@@ -19,6 +19,13 @@ const UserNutriticsInfo = new mongoose.Schema({
     },
     musclePercentage: {
         type: Number
+    },
+    createdBy: {
+        type: String,
+        required: true,
+        unique: true
     }
 
 })
+
+export default UserNutriticsInfo;
