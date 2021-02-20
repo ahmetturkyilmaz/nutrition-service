@@ -28,4 +28,4 @@ const UserNutriticsInfo = new mongoose.Schema({
 
 })
 
-export default UserNutriticsInfo;
+export default mongoose.model('userNutriticsInfo', UserNutriticsInfo);

@@ -17,6 +17,7 @@ const app = express();
 app.use(exceptionHandler);
 
 app.use(morgan);
+
 //Body Parser
 app.use(express.json());
 
@@ -36,9 +37,9 @@ const server = app.listen(
     )
 );
 
-// Handle unhandled promise rejections
+/*// Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err.message}`.red);
+    console.log(`Error: ${err.message}`);
     // Close server & exit process
     // server.close(() => process.exit(1));
-});
+});*/

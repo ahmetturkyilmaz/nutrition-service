@@ -7,7 +7,7 @@ const nutritionRouter = routerExpress.Router();
 nutritionRouter.route("/:id")
     .get(protect, userNutritionInfoController.getById)
     .delete(protect, userNutritionInfoController.deleteUserNutritionInfoById)
-    .put(protect, userNutritionInfoController.putUserNutritionInfo);
+    .put(protect, userNutritionInfoController.updateUserNutritionInfo);
 
 nutritionRouter.route("/")
     .post(protect, userNutritionInfoController.postUserNutritionInfo);
