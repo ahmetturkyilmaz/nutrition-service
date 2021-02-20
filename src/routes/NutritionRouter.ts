@@ -10,6 +10,6 @@ nutritionRouter.route("/:id")
     .put(protect, userNutritionInfoController.updateUserNutritionInfo);
 
 nutritionRouter.route("/")
-    .post(protect, userNutritionInfoController.postUserNutritionInfo);
+    .post(userNutritionInfoController.postUserNutritionInfo);
 
-module.exports = nutritionRouter;
+export default nutritionRouter;

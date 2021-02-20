@@ -1,36 +1,24 @@
 import UserNutriticsInfo from "../db/model/UserNutriticsInfo";
 import {ObjectId} from "mongoose";
 import UserNutriticsInfoNotFoundException from "../exception/UserNutriticsInfoNotFoundException";
+import {userNutriticsInfoRepository} from "../repository/UserNutriticsInfoRepository";
 
 class UserNutritionInfoService {
 
-    getById = async (_id: ObjectId | String | Number | Buffer) => {
-        let userInfo = await UserNutriticsInfo.findById(_id);
-        if (!userInfo) {
-            throw new UserNutriticsInfoNotFoundException(`User Nutritics Not found with id : ${_id}`)
-        }
-        return userInfo;
+    findInfoById = async (_id: ObjectId | String | Number | Buffer) => {
+        return await userNutriticsInfoRepository.getById(_id);
     }
-    post = async (userInfo) => {
-        let storedUserInfo = await UserNutriticsInfo.create(userInfo)
-        return storedUserInfo;
+    createNewNutriticsInfo = async (userInfo) => {
+        return await userNutriticsInfoRepository.post(userInfo);
     }
-    patch = async (_id: ObjectId | String | Number | Buffer, userInfo) => {
-        await this.existsById(_id);
-        let newUserInfo = await UserNutriticsInfo.findOneAndUpdate(_id, userInfo)
-        return newUserInfo;
+    patchUpdateInfo = async (_id: ObjectId | String | Number | Buffer, userInfo) => {
+        return await userNutriticsInfoRepository.patch(_id, userInfo)
     }
-    delete = async (_id: ObjectId | String | Number | Buffer) => {
-        await this.existsById(_id);
-        await UserNutriticsInfo.findByIdAndDelete(_id);
+    deleteInfoById = async (_id: ObjectId | String | Number | Buffer) => {
+        return await userNutriticsInfoRepository.delete(_id);
     }
 
-    existsById = async (_id: ObjectId | String | Number | Buffer) => {
-        const isInfoExists = await UserNutriticsInfo.exists({_id: _id})
-        if (!isInfoExists) {
-            throw new UserNutriticsInfoNotFoundException(`User Nutritics Not found with id : ${_id}`)
-        }
-    }
+
 }
 
 export const userNutritionInfoService = new UserNutritionInfoService();

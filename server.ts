@@ -1,22 +1,23 @@
+import nutritionRouter from "./src/routes/NutritionRouter";
+
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan');
-const mongoConnection = require("./src/db/config/MongoConfig");
+const connectDB= require("./src/db/config/MongoConfig");
 const exceptionHandler = require('./src/middleware/error')
 import mongoSanitize from 'express-mongo-sanitize';
 
-//Route files
-
-const userNutriticsInfo = require("./src/routes/NutritionRouter");
+// Load env vars
 dotenv.config({path: './config/config.env'});
 
-mongoConnection();
+// Connect to database
+connectDB();
 
 const app = express();
 
 app.use(exceptionHandler);
 
-app.use(morgan);
+app.use(morgan('dev'));
 
 //Body Parser
 app.use(express.json());
@@ -24,10 +25,9 @@ app.use(express.json());
 // Sanitize data
 app.use(mongoSanitize());
 
-app.use(mongoSanitize());
 
 //Mount Routers
-app.use('/api/user-nutritics', userNutriticsInfo);
+app.use('/api/user-nutritics', nutritionRouter);
 
 const PORT = process.env.PORT;
 
