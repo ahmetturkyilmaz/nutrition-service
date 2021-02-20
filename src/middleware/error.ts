@@ -1,4 +1,3 @@
-import ErrorResponse from "../exception/ErrorResponse";
 
 const errorHandler = (err, req, res, next) => {
 

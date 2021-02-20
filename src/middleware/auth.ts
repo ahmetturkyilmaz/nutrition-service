@@ -1,5 +1,5 @@
 import asyncHandler from "./async";
-import ErrorResponse from "../exception/ErrorResponse";
+import UserNotAuthorizedException from "../exception/UserNotAuthorizedException";
 
 const jwt = require('jsonwebtoken');
 
@@ -14,7 +14,7 @@ const protect = asyncHandler(async (req, res, next) => {
     }
     // Make sure token exists
     if (!token) {
-        return next(new ErrorResponse('Not authorized to access this route', 401));
+        return next(new UserNotAuthorizedException('Not authorized to access this route'));
     }
 
     try {
@@ -26,17 +26,8 @@ const protect = asyncHandler(async (req, res, next) => {
         }
         next();
     } catch (err) {
-        return next(new ErrorResponse('Not authorized to access this route', 401));
+        return next(new UserNotAuthorizedException('Not authorized to access this route'));
     }
 });
 
-// Grant access to specific roles
-exports.authorize = (...roles) => {
-    return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
-            return next(new ErrorResponse(`User role ${req.user.role} is not authorized to access this route`, 403));
-        }
-        next();
-    };
-};
 export default protect;
