@@ -11,13 +11,12 @@ class UserNutriticsInfoRepository {
         return userInfo;
     }
     post = async (userInfo) => {
-        let storedUserInfo = await UserNutriticsInfo.create(userInfo)
-        return storedUserInfo;
+        userInfo.createdAt = new Date().getDate();
+        return await UserNutriticsInfo.create(userInfo);
     }
     patch = async (_id: ObjectId | String | Number | Buffer, userInfo) => {
         await this.existsById(_id);
-        let newUserInfo = await UserNutriticsInfo.findOneAndUpdate(_id, userInfo)
-        return newUserInfo;
+        return UserNutriticsInfo.findOneAndUpdate(_id, userInfo);
     }
     delete = async (_id: ObjectId | String | Number | Buffer) => {
         await this.existsById(_id);
@@ -31,4 +30,5 @@ class UserNutriticsInfoRepository {
         }
     }
 }
+
 export const userNutriticsInfoRepository = new UserNutriticsInfoRepository();

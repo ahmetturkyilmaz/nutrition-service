@@ -20,10 +20,7 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
         // Verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        if (req.method == "POST") {
-            req.body.createdBy = decoded;
-        }
+        req.user = decoded;
         next();
     } catch (err) {
         return next(new UserNotAuthorizedException('Not authorized to access this route'));

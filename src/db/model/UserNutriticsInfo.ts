@@ -1,8 +1,18 @@
 import {BaseEntity} from "./BaseEntity";
-import mongoose from 'mongoose';
+import mongoose, {Schema, Document, Model} from 'mongoose';
 
-const UserNutriticsInfo = new mongoose.Schema({
-    _id: {
+export interface IUserNutriticsInfo extends Document {
+    id: string,
+    height: number,
+    weight: number,
+    fatPercentage: number,
+    musclePercentage: number,
+    createdAt: number,
+    createdBy: number
+}
+
+const UserNutriticsInfoSchema = new Schema<IUserNutriticsInfo>({
+    id: {
         type: String
     },
     height: {
@@ -15,17 +25,24 @@ const UserNutriticsInfo = new mongoose.Schema({
     },
     fatPercentage: {
         type: Number,
-
     },
     musclePercentage: {
         type: Number
     },
+    createdAt: {
+        type: Number,
+        required: true
+    },
     createdBy: {
         type: String,
-        required: true,
-        unique: true
+        //  required: true,
+       // unique: true
     }
 
 })
+UserNutriticsInfoSchema.pre<IUserNutriticsInfo>("save", function (next) {
+    this.createdAt = Date.now();
+    next();
+})
 
-export default mongoose.model('userNutriticsInfo', UserNutriticsInfo);
+export default mongoose.model<IUserNutriticsInfo>('userNutriticsInfo', UserNutriticsInfoSchema);
