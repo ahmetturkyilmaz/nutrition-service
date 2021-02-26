@@ -9,11 +9,20 @@ export interface IUserNutriticsInfo extends Document {
     musclePercentage: number,
     createdAt: number,
     createdBy: number
+    waist: number,
+    hip: number,
+    neck: number
+    unit: string
 }
 
 const UserNutriticsInfoSchema = new Schema<IUserNutriticsInfo>({
     id: {
         type: String
+    },
+    sex: {
+        type: String,
+        required: true,
+        enum: ['user', 'publisher']
     },
     height: {
         type: Number,
@@ -29,6 +38,20 @@ const UserNutriticsInfoSchema = new Schema<IUserNutriticsInfo>({
     musclePercentage: {
         type: Number
     },
+    waist: {
+        type: Number
+    },
+    hip: {
+        type: Number
+    },
+    neck: {
+        type: Number
+    },
+    doCalculateFatPercentage: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     createdAt: {
         type: Number,
         required: true
@@ -36,13 +59,13 @@ const UserNutriticsInfoSchema = new Schema<IUserNutriticsInfo>({
     createdBy: {
         type: String,
         //  required: true,
-       // unique: true
+        // unique: true
+    },
+    unit: {
+        enum: ['METRIC', 'IMPERIAL'],
+        default: 'METRIC'
     }
 
-})
-UserNutriticsInfoSchema.pre<IUserNutriticsInfo>("save", function (next) {
-    this.createdAt = Date.now();
-    next();
 })
 
 export default mongoose.model<IUserNutriticsInfo>('userNutriticsInfo', UserNutriticsInfoSchema);

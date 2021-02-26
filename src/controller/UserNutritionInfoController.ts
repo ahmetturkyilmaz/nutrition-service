@@ -12,13 +12,13 @@ class UserNutritionInfoController {
 
     postUserNutritionInfo = asyncHandler(async (req: GlobalRequest, res: Response, next: NextFunction) => {
         console.log(req)
-        const userInfo = await userNutritionInfoService.createNewUserInfo({...req.body, createdBy: req.user});
+        const userInfo = await userNutritionInfoService.createNewUserInfo({...req.body, createdBy: req.user},req.params.doCalculateFatPercentage);
         res.status(201).json(userInfo);
     });
 
     updateUserNutritionInfo = asyncHandler(async (req: GlobalRequest, res: Response, next: NextFunction) => {
         console.log(req)
-        const userInfo = await userNutritionInfoService.patchUpdateUserInfo(req.body.id, req.body);
+        const userInfo = await userNutritionInfoService.patchUpdateUserInfo(req.body.id, req.body,req.params.doCalculateFatPercentage);
         res.status(204).json(userInfo);
     });
 
@@ -28,7 +28,6 @@ class UserNutritionInfoController {
         res.status(204).json({
             message: "User Nutrition Info deleted"
         });
-
     });
 }
 
