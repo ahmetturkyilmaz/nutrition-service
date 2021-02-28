@@ -27,7 +27,7 @@ app.use(mongoSanitize());
 
 
 //Mount Routers
-app.use('/api/user-nutritics', nutritionRouter);
+app.use('/api', nutritionRouter);
 
 const PORT = process.env.PORT;
 

@@ -1,5 +1,5 @@
 
-class UserNutriticsInfoNotFoundException extends Error {
+class UserNutritionInfoNotFoundException extends Error {
     statusCode: number;
 
     constructor(message) {
@@ -10,4 +10,4 @@ class UserNutriticsInfoNotFoundException extends Error {
 
 }
 
-export default UserNutriticsInfoNotFoundException;
+export default UserNutritionInfoNotFoundException;

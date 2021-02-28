@@ -1,12 +1,12 @@
 import {ObjectId} from "mongoose";
-import UserNutriticsInfo from "../db/model/UserNutriticsInfo";
-import UserNutriticsInfoNotFoundException from "../exception/UserNutriticsInfoNotFoundException";
+import UserNutriticsInfo from "../db/model/UserNutritionInfo";
+import UserNutritionInfoNotFoundException from "../exception/UserNutritionInfoNotFoundException";
 
-class UserNutriticsInfoRepository {
+class UserNutritionInfoRepository {
     getById = async (_id: ObjectId | String | Number | Buffer) => {
         let userInfo = await UserNutriticsInfo.findById(_id);
         if (!userInfo) {
-            throw new UserNutriticsInfoNotFoundException(`User Nutritics Not found with id : ${_id}`)
+            throw new UserNutritionInfoNotFoundException(`User Nutritics Not found with id : ${_id}`)
         }
         return userInfo;
     }
@@ -26,9 +26,14 @@ class UserNutriticsInfoRepository {
     existsById = async (_id: ObjectId | String | Number | Buffer) => {
         const isInfoExists = await UserNutriticsInfo.exists({_id: _id})
         if (!isInfoExists) {
-            throw new UserNutriticsInfoNotFoundException(`User Nutritics Not found with id : ${_id}`)
+            throw new UserNutritionInfoNotFoundException(`User Nutritics Not found with id : ${_id}`)
         }
+    }
+
+    getAllByUsername = async (user: string) => {
+
+        return UserNutriticsInfo.find({createdBy: user});
     }
 }
 
-export const userNutriticsInfoRepository = new UserNutriticsInfoRepository();
+export const userNutritionInfoRepository = new UserNutritionInfoRepository();

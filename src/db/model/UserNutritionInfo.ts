@@ -1,28 +1,29 @@
 import {BaseEntity} from "./BaseEntity";
 import mongoose, {Schema, Document, Model} from 'mongoose';
 
-export interface IUserNutriticsInfo extends Document {
+export interface IUserNutritionInfo extends Document {
     id: string,
+    sex:string,
     height: number,
     weight: number,
     fatPercentage: number,
     musclePercentage: number,
-    createdAt: number,
-    createdBy: number
+    createdAt: Date,
+    createdBy: string
     waist: number,
     hip: number,
     neck: number
     unit: string
 }
 
-const UserNutriticsInfoSchema = new Schema<IUserNutriticsInfo>({
+const UserNutritionInfoSchema = new Schema<IUserNutritionInfo>({
     id: {
         type: String
     },
     sex: {
         type: String,
         required: true,
-        enum: ['user', 'publisher']
+        enum: ['MALE', 'FEMALE']
     },
     height: {
         type: Number,
@@ -47,17 +48,12 @@ const UserNutriticsInfoSchema = new Schema<IUserNutriticsInfo>({
     neck: {
         type: Number
     },
-    doCalculateFatPercentage: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
     createdAt: {
         type: Number,
         required: true
     },
     createdBy: {
-        type: String,
+        type: Date,
         //  required: true,
         // unique: true
     },
@@ -68,4 +64,4 @@ const UserNutriticsInfoSchema = new Schema<IUserNutriticsInfo>({
 
 })
 
-export default mongoose.model<IUserNutriticsInfo>('userNutriticsInfo', UserNutriticsInfoSchema);
+export default mongoose.model<IUserNutritionInfo>('userNutritionInfo', UserNutritionInfoSchema);

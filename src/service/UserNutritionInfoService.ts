@@ -1,25 +1,34 @@
 import {ObjectId} from "mongoose";
-import {userNutriticsInfoRepository} from "../repository/UserNutriticsInfoRepository";
+import {userNutritionInfoRepository} from "../repository/UserNutritionInfoRepository";
+import {IUserNutritionInfo} from "../db/model/UserNutritionInfo";
 
 class UserNutritionInfoService {
 
+    getAllByUsername = async (user: string) => {
+        let userInfo = await userNutritionInfoRepository.getAllByUsername(user);
+        userInfo.sort((a: IUserNutritionInfo, b: IUserNutritionInfo) => {
+            return a.createdAt.getTime() - b.createdAt.getTime()
+        })
+        return userInfo;
+    }
+
     findUserInfoById = async (_id: ObjectId | String | Number | Buffer) => {
-        return await userNutriticsInfoRepository.getById(_id);
+        return await userNutritionInfoRepository.getById(_id);
     }
     createNewUserInfo = async (userInfo, doCalculateFatPercentage: string) => {
         if (doCalculateFatPercentage === 'true') {
             userInfo.fatPercentage = this.calculateFatPercentage(userInfo);
         }
-        return await userNutriticsInfoRepository.post(userInfo);
+        return await userNutritionInfoRepository.post(userInfo);
     }
     patchUpdateUserInfo = async (_id: ObjectId | String | Number | Buffer, userInfo, doCalculateFatPercentage: string) => {
         if (doCalculateFatPercentage === 'true') {
             userInfo.fatPercentage = this.calculateFatPercentage(userInfo);
         }
-        return await userNutriticsInfoRepository.patch(_id, userInfo)
+        return await userNutritionInfoRepository.patch(_id, userInfo)
     }
     deleteUserInfoById = async (_id: ObjectId | String | Number | Buffer) => {
-        return await userNutriticsInfoRepository.delete(_id);
+        return await userNutritionInfoRepository.delete(_id);
     }
     calculateFatPercentage = (userInfo) => {
         let bodyFat;
@@ -49,6 +58,7 @@ class UserNutritionInfoService {
         }
         return bodyFat
     }
+
 }
 
 export const userNutritionInfoService = new UserNutritionInfoService();
