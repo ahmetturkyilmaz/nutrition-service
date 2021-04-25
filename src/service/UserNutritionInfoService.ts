@@ -1,6 +1,7 @@
 import {ObjectId} from "mongoose";
 import {userNutritionInfoRepository} from "../repository/UserNutritionInfoRepository";
 import {IUserNutritionInfo} from "../db/model/UserNutritionInfo";
+import FieldIsEmptyError from "../exception/FieldIsEmptyError";
 
 class UserNutritionInfoService {
 

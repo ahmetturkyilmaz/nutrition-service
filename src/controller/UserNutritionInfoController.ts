@@ -6,6 +6,7 @@ import {GlobalRequest} from "../types/GlobalRequest";
 class UserNutritionInfoController {
   getAll = asyncHandler(async (req: GlobalRequest, res: Response, next: NextFunction) => {
     const userInfo = await userNutritionInfoService.getAllByUsername(req.user);
+    console.log(userInfo)
     res.status(200).json(userInfo);
   })
   getById = asyncHandler(async (req: GlobalRequest, res: Response, next: NextFunction) => {

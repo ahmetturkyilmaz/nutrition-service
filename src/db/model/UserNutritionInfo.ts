@@ -1,14 +1,14 @@
-import {BaseEntity} from "./BaseEntity";
-import mongoose, {Schema, Document, Model} from 'mongoose';
+import mongoose, {Document, Schema} from 'mongoose';
 
 export interface IUserNutritionInfo extends Document {
     id: string,
-    sex:string,
+    sex: string,
     height: number,
     weight: number,
     fatPercentage: number,
     musclePercentage: number,
     createdAt: Date,
+    dateOfInfo: Date,
     createdBy: string
     waist: number,
     hip: number,
@@ -53,13 +53,17 @@ const UserNutritionInfoSchema = new Schema<IUserNutritionInfo>({
         required: true
     },
     createdBy: {
-        type: Date,
-        //  required: true,
+        type: String,
+        required: true,
         // unique: true
+    },
+    dateOfInfo: {
+        type: Date,
+        required: true
     },
     unit: {
         enum: ['METRIC', 'IMPERIAL'],
-        default: 'METRIC'
+        default: ['METRIC']
     }
 
 })

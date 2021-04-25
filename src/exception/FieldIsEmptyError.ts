@@ -7,3 +7,4 @@ class FieldIsEmptyError extends Error{
         this.statusCode = 401;
     }
 }
+export default FieldIsEmptyError;

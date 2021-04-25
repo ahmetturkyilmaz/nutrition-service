@@ -33,8 +33,7 @@ const PORT = process.env.PORT;
 
 const server = app.listen(
     PORT,
-    console.log(`server listening on ${process.env.PORT} mode on port ${PORT}`
-    )
+    console.log(`server listening on ${process.env.PORT} mode on port ${PORT}`)
 );
 
 /*// Handle unhandled promise rejections
