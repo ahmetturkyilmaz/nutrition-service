@@ -6,11 +6,11 @@ const nutritionRouter = routerExpress.Router();
 
 nutritionRouter.route("/user-nutrition/:id")
   .get(protect, userNutritionInfoController.getById)
-  .delete(protect, userNutritionInfoController.deleteUserNutritionInfoById)
-  .patch(protect, userNutritionInfoController.patchUpdateUserNutritionInfo);
+  .delete(protect, userNutritionInfoController.deleteUserNutritionInfoById);
+
 
 nutritionRouter.route("/user-nutrition")
   .get(protect, userNutritionInfoController.getAll)
-  .post(userNutritionInfoController.postUserNutritionInfo);
-
+  .post(protect, userNutritionInfoController.postUserNutritionInfo)
+  .put(protect, userNutritionInfoController.updateUserNutritionInfo);
 export default nutritionRouter;

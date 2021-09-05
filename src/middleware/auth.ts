@@ -21,12 +21,14 @@ const protect = asyncHandler(async (req, res, next) => {
 
     try {
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET.trim(),{ algorithms: ['HS512'] });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET.trim(), {algorithms: ['HS512']});
         console.log('user = ', decoded.sub)
         req.user = decoded.sub;
         next();
     } catch (err) {
         console.log(err)
+        console.log(token)
+
         return next(new UserNotAuthorizedException('Not authorized to access this route'));
     }
 });

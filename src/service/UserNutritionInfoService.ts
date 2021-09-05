@@ -7,6 +7,7 @@ class UserNutritionInfoService {
 
     getAllByUsername = async (user: string) => {
         let userInfo = await userNutritionInfoRepository.getAllByUsername(user);
+        console.log("service ", userInfo)
         userInfo.sort((a: IUserNutritionInfo, b: IUserNutritionInfo) => {
             return a.createdAt.getTime() - b.createdAt.getTime()
         })
@@ -22,11 +23,8 @@ class UserNutritionInfoService {
         }
         return await userNutritionInfoRepository.post(userInfo);
     }
-    patchUpdateUserInfo = async (_id: ObjectId | String | Number | Buffer, userInfo, doCalculateFatPercentage: string) => {
-        if (doCalculateFatPercentage === 'true') {
-            userInfo.fatPercentage = this.calculateFatPercentage(userInfo);
-        }
-        return await userNutritionInfoRepository.patch(_id, userInfo)
+    patchUpdateUserInfo = async (userInfo) => {
+        return await userNutritionInfoRepository.patch(userInfo)
     }
     deleteUserInfoById = async (_id: ObjectId | String | Number | Buffer) => {
         return await userNutritionInfoRepository.delete(_id);

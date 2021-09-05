@@ -1,19 +1,29 @@
 import mongoose, {Document, Schema} from 'mongoose';
+import {Unit} from "../../types/Unit";
+import {Sex} from "../../types/Sex";
 
 export interface IUserNutritionInfo extends Document {
     id: string,
-    sex: string,
+    sex: Sex,
+
+    createdAt: Date,
+    dateOfInfo: Date,
+    createdBy: string,
     height: number,
     weight: number,
     fatPercentage: number,
     musclePercentage: number,
-    createdAt: Date,
-    dateOfInfo: Date,
-    createdBy: string
+    neck: number,
+    shoulder: number,
+    arm: number,
+    forearm: number,
+    chest: number,
+    bust: number,
     waist: number,
     hip: number,
-    neck: number
-    unit: string
+    thigh: number,
+    calf: number,
+    unit: Unit
 }
 
 const UserNutritionInfoSchema = new Schema<IUserNutritionInfo>({
@@ -21,9 +31,9 @@ const UserNutritionInfoSchema = new Schema<IUserNutritionInfo>({
         type: String
     },
     sex: {
-        type: String,
+        type: Sex,
+        default: Sex.MALE,
         required: true,
-        enum: ['MALE', 'FEMALE']
     },
     height: {
         type: Number,
@@ -39,32 +49,54 @@ const UserNutritionInfoSchema = new Schema<IUserNutritionInfo>({
     musclePercentage: {
         type: Number
     },
+    arm: {
+        type: Number
+    },
+    neck: {
+        type: Number
+    },
+    shoulder: {
+        type: Number
+    },
+    forearm: {
+        type: Number
+    },
+    chest: {
+        type: Number
+    },
+    bust: {
+        type: Number
+    },
     waist: {
         type: Number
     },
     hip: {
         type: Number
     },
-    neck: {
+    thigh: {
         type: Number
     },
+
+    calf: {
+        type: Number
+    },
+    unit: {
+        type: Unit,
+        default: Unit.METRIC
+    },
     createdAt: {
-        type: Number,
+        type: Date,
         required: true
     },
     createdBy: {
         type: String,
         required: true,
-        // unique: true
     },
     dateOfInfo: {
         type: Date,
         required: true
     },
-    unit: {
-        enum: ['METRIC', 'IMPERIAL'],
-        default: ['METRIC']
-    }
+
 
 })
 

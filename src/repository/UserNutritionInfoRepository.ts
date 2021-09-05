@@ -14,9 +14,9 @@ class UserNutritionInfoRepository {
         userInfo.createdAt = new Date().getDate();
         return await UserNutriticsInfo.create(userInfo);
     }
-    patch = async (_id: ObjectId | String | Number | Buffer, userInfo) => {
-        await this.existsById(_id);
-        return UserNutriticsInfo.findOneAndUpdate(_id, userInfo);
+    patch = async (userInfo) => {
+        await this.existsById(userInfo._id);
+        return UserNutriticsInfo.findOneAndUpdate(userInfo._id, userInfo);
     }
     delete = async (_id: ObjectId | String | Number | Buffer) => {
         await this.existsById(_id);
