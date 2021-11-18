@@ -1,5 +1,6 @@
 import {ObjectId} from "mongoose";
 import UserNutriticsInfo from "../db/model/UserNutritionInfo";
+import UserNutritionInfo from "../db/model/UserNutritionInfo";
 import UserNutritionInfoNotFoundException from "../exception/UserNutritionInfoNotFoundException";
 
 class UserNutritionInfoRepository {
@@ -9,6 +10,17 @@ class UserNutritionInfoRepository {
             throw new UserNutritionInfoNotFoundException(`User Nutritics Not found with id : ${_id}`)
         }
         return userInfo;
+    }
+    getAllMonthly = async (user, date, monthNumb, fieldType) => {
+        const month = date.getMonth();
+        const previousMonth: Date = date.setMonth(month - monthNumb);
+        let userInfos = await UserNutritionInfo.find({},{
+            createdAt: {
+                $gte: previousMonth,
+                $lte: date
+            }
+        });
+        return userInfos;
     }
     post = async (userInfo) => {
         userInfo.createdAt = new Date().getDate();

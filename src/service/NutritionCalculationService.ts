@@ -5,13 +5,14 @@ import FieldTypeIsInvalidError from "../exception/FieldTypeIsInvalidError";
 class NutritionCalculationService {
 
 
-    getTableInfo = async (user: string, fieldType: string) => {
-        let infos = await userNutritionInfoService.getAllByUsername(user);
+    getTableInfoMonthly = async (user: string, date: string, fieldType: string) => {
+        let dateInfo = new Date(date);
+        let infos = await userNutritionInfoService.getAllMonthly(user, dateInfo, 1, fieldType);
         if (fieldType == null) {
             throw new FieldTypeIsInvalidError("Given Field Type is null or invalid")
         }
         let fieldList: number[];
-        if (infos != null && infos.length != 0) {
+        /*if (infos != null && infos.length != 0) {
             switch (fieldType) {
                 case 'weight':
                     infos.forEach(info => {
@@ -72,9 +73,9 @@ class NutritionCalculationService {
                     infos.forEach(info => {
                         fieldList.push(info.musclePercentage)
                     });
-                    break;
-            }
-        }
+                    break;}}*/
+
+
     }
 }
 

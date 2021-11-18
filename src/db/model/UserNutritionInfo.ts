@@ -5,7 +5,6 @@ import {Sex} from "../../types/Sex";
 export interface IUserNutritionInfo extends Document {
     id: string,
     sex: Sex,
-
     createdAt: Date,
     dateOfInfo: Date,
     createdBy: string,
@@ -26,12 +25,14 @@ export interface IUserNutritionInfo extends Document {
     unit: Unit
 }
 
+// @ts-ignore
 const UserNutritionInfoSchema = new Schema<IUserNutritionInfo>({
     id: {
         type: String
     },
     sex: {
-        type: Sex,
+        type: String,
+        enum: Sex,
         default: Sex.MALE,
         required: true,
     },
@@ -81,7 +82,8 @@ const UserNutritionInfoSchema = new Schema<IUserNutritionInfo>({
         type: Number
     },
     unit: {
-        type: Unit,
+        type: String,
+        enum: Unit,
         default: Unit.METRIC
     },
     createdAt: {

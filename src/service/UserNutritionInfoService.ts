@@ -13,6 +13,11 @@ class UserNutritionInfoService {
         })
         return userInfo;
     }
+    getAllMonthly = async (user: string, date: Date, monthNumb: number, fieldType: string) => {
+        let userInfos = await userNutritionInfoRepository.getAllMonthly(user, date, monthNumb, fieldType);
+        return userInfos;
+
+    }
 
     findUserInfoById = async (_id: ObjectId | String | Number | Buffer) => {
         return await userNutritionInfoRepository.getById(_id);
